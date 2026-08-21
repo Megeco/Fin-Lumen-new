@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ["@swisseph/node"]
-  },
+  serverExternalPackages: ["@swisseph/node"],
   webpack(config, { isServer }) {
     if (isServer) {
       config.externals.push({
