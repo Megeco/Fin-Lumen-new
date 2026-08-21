@@ -1,0 +1,30 @@
+import { sql } from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+
+export const companyAdmissionRequests = sqliteTable("company_admission_requests", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  originalQuery: text("original_query").notNull(),
+  symbol: text("symbol").notNull().unique(),
+  companyName: text("company_name").notNull(),
+  exchange: text("exchange").notNull(),
+  status: text("status").notNull(),
+  classification: text("classification").notNull(),
+  evidenceStage: text("evidence_stage").notNull(),
+  listingEvidenceUrl: text("listing_evidence_url").notNull(),
+  corporateEvidenceUrl: text("corporate_evidence_url").notNull(),
+  isin: text("isin"),
+  listingDate: text("listing_date"),
+  candidateChartType: text("candidate_chart_type"),
+  candidateDate: text("candidate_date"),
+  candidateTime: text("candidate_time"),
+  candidateCity: text("candidate_city"),
+  candidateTimezone: text("candidate_timezone"),
+  sourceLabel: text("source_label"),
+  historyFlagsJson: text("history_flags_json").notNull().default("[]"),
+  ownerDecision: text("owner_decision"),
+  ownerNote: text("owner_note"),
+  decidedAt: text("decided_at"),
+  requestCount: integer("request_count").notNull().default(1),
+  firstRequestedAt: text("first_requested_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  lastRequestedAt: text("last_requested_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});

@@ -1,0 +1,9 @@
+import { getChatGPTUser } from "../../../chatgpt-auth";
+
+type ReviewRow = Record<string, string | number | null>;
+
+async function ownerDb():Promise<D1Database|null>{const user=await getChatGPTUser();const owner=String(process.env.FINLUMEN_OWNER_EMAIL||"").trim().toLowerCase();if(!user||!owner||user.email.toLowerCase()!==owner)return null;const runtime=await import("cloudflare:workers");return runtime.env.DB||null}
+
+export async function GET(){const db=await ownerDb();if(!db)return Response.json({success:false,error:"Owner access required."},{status:403});const result=await db.prepare("SELECT * FROM company_admission_requests ORDER BY last_requested_at DESC LIMIT 100").all<ReviewRow>();return Response.json({success:true,requests:result.results||[]})}
+
+export async function POST(request:Request){const db=await ownerDb();if(!db)return Response.json({success:false,error:"Owner access required."},{status:403});let body:{id?:number;action?:string;note?:string};try{body=await request.json() as typeof body}catch{return Response.json({success:false,error:"Invalid review request."},{status:400})}const id=Number(body.id);const actions:Record<string,{status:string;decision:string}>={"approve-export":{status:"approved-for-export",decision:"approved"},"needs-evidence":{status:"needs-evidence",decision:"needs-evidence"},decline:{status:"declined",decision:"declined"}};const selected=actions[String(body.action||"")];if(!id||!selected)return Response.json({success:false,error:"Unknown review action."},{status:400});await db.prepare("UPDATE company_admission_requests SET status=?, owner_decision=?, owner_note=?, decided_at=CURRENT_TIMESTAMP WHERE id=?").bind(selected.status,selected.decision,String(body.note||"").slice(0,1000),id).run();const row=await db.prepare("SELECT * FROM company_admission_requests WHERE id=?").bind(id).first<ReviewRow>();return Response.json({success:true,request:row})}
