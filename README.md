@@ -1,59 +1,50 @@
-# Fin-Lumen v37.9.14 Integrated Research + Replay
+# Fin-Lumen v37.9.14 — single-app Vercel edition
 
-Complete private-beta source distribution combining:
+This repository is the direct-deploy edition of Fin-Lumen. The subscriber dashboard, Historical Sky Replay, collapsible v37.9.14 Research View, natal registry, full astrology calculation chain, and native Swiss Ephemeris runtime are one Next.js application.
 
-1. The cache-first Fin-Lumen subscriber interface
-2. The production-runtime edition of Fin-Lumen Personal Research 1.0 / v37.9.14 Pure Astro
-3. Live Historical Sky Replay
-4. A collapsible full Research View in every expanded company card
-5. The existing company-admission workflow and database migrations
+## Deploy to Vercel
 
-## Architecture
+1. Put the **contents of this folder** at the root of a GitHub repository. `package.json`, `pages`, `components`, `lib`, and `styles` must be visible at the repository root.
+2. Import that repository into Vercel.
+3. Keep **Root Directory** blank (or set it to `.`).
+4. Vercel should detect **Next.js** automatically. Do not select `astro-engine-v37.9.14` or `subscriber-interface`; those nested folders do not exist in this corrected edition.
+5. Deploy. No environment variables are required for the application or Replay Lab.
 
-```text
-Subscriber interface
-  ├─ current reading adapter ─────────────┐
-  ├─ historical replay adapter ──────────┼─> v37.9.14 engine
-  ├─ browser watchlist / reading cache   │      ├─ Swiss Ephemeris
-  └─ company admission queue             │      ├─ approved natal registry
-                                         │      ├─ temporal window scanner
-                                         │      └─ replay/research ledger
-                                         └─ no second interpretation engine
-```
+The included `vercel.json` installs the native Swiss Ephemeris dependency and runs the production build.
 
-The engine remains the single astrology authority. The interface presents its outputs and never recalculates or blends them.
+## What is included
 
-## Package contents
+- New Fin-Lumen subscriber interface and browser-first watchlist/cache (up to 100 stocks)
+- v37.9.14 current readings
+- Real Historical Sky Replay for an approved company and chosen date
+- Complete collapsible Research View with natal, transit, eclipse, macro, receptor-fit, window, scoring, and replay evidence
+- Version-controlled natal registry and approved overrides
+- Native `@swisseph/node` runtime; no static astronomy substitute
+- Existing new-company admission queue bridge
+- Acceptance tests and 30-stock live/Replay parity tests
 
-- `subscriber-interface/` — current Fin-Lumen interface, Replay UI, Research View, D1 schema and migrations
-- `astro-engine-v37.9.14/` — complete production runtime, natal registry, Replay endpoint and two authoritative validation suites
-- `docs/ARCHITECTURE.md` — boundaries and data flow
-- `docs/DEPLOYMENT.md` — deployment instructions and account requirements
-- `CHECKSUMS.sha256` — file-integrity manifest
+## Data and persistence
 
-## Important behavior
+- Personal watchlist and reading cache stay in the user's browser.
+- Approved natal records stay in this version-controlled repository.
+- New-company requests are forwarded to the existing Fin-Lumen admission service and its current D1 store. No Supabase or new database account is needed.
+- The top-right owner button opens the protected owner-review workspace on the existing Fin-Lumen Site.
+- If the admission service is moved later, set `FIN_LUMEN_ADMISSION_ORIGIN` to its new origin; current readings and Replay do not depend on that variable.
 
-- Historical Sky Replay accepts an approved company and a past date.
-- v37.9.14 reconstructs that date's sky and uses the approved natal chart.
-- The result includes natal authority, macro sky, transit-to-natal contacts, scores, windows, long-cycle structure, eclipses, receptor fit, and the complete raw research payload.
-- Published Archive retrieves stored publications only. It does not pretend that an arbitrary date was previously published.
-- No technical indicators or price data enter the astrology calculation.
-
-## Quick validation
+## Local verification
 
 ```bash
-cd astro-engine-v37.9.14
-npm ci
+npm install
 npm test
 npm run test:replay-parity
-
-cd ../subscriber-interface
-npm ci
 npm run build
+npm start
 ```
 
-The interface defaults to the existing v37.9.14 engine deployment. No new database account is required for Replay or Research View.
+Open `http://localhost:3000` after starting.
 
-## GitHub file limit
+## Architecture boundary
 
-This compact distribution contains **91 files in total**. It is deliberately below GitHub's 100-file browser-upload ceiling. Only redundant development audits, duplicate legacy endpoints and non-runtime reports were omitted. The astrology runtime and user-facing capabilities are unchanged.
+The astrology engine remains v37.9.14. The interface calls local API routes inside the same Vercel deployment. Unknown company requests never create astrology or modify the approved registry automatically. Owner approval and a reviewed registry change remain required.
+
+Fin-Lumen is an astro-driven phase-research model, not investment advice. Interface wording should describe what the model maps rather than present astrological readings as guaranteed market outcomes.
