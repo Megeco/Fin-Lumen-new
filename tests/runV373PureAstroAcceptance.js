@@ -139,22 +139,52 @@ assert.doesNotMatch(serialized, /capital|deploy|\bbuy\b|\bsell\b|\bhold\b|\btrim
 assert.equal(qualified.invariants.containsTradingInstruction, false);
 assert.equal(qualified.invariants.containsPositionSizing, false);
 
-// The single-app Vercel edition uses the subscriber dashboard while keeping
-// the engine contract unchanged. Test the integrated public surfaces here;
-// engine and temporal-sovereignty assertions continue below.
-const subscriberPage = fs.readFileSync(new URL("../components/Dashboard.js", import.meta.url), "utf8");
-const legacyEngineInterfaceContract = fs.readFileSync(new URL("./legacy-engine-interface-contract.js", import.meta.url), "utf8");
-const page = `${subscriberPage}\n${legacyEngineInterfaceContract}`;
+const page = fs.readFileSync(new URL("../pages/index.js", import.meta.url), "utf8");
 assert.doesNotMatch(page, />\s*(BUY|SELL|HOLD|TRIM|EXIT|NO FRESH|PART BUILD|FULL BUILD)\s*</i);
-assert.match(page, /Replay Lab/);
-assert.match(page, /Historical Sky Replay/);
+assert.match(page, /Rerating Window/);
+assert.match(page, /Break-Risk Window/);
+assert.match(page, /Astro Research Details/);
+assert.match(page, /Swiss Ephemeris/);
+assert.match(page, /Early pressure warning — not in control/);
+assert.match(page, /Pressure is in control/);
+assert.doesNotMatch(page, />Pressure stage:\s*\{human/);
+assert.match(page, /Macro Astro Environment/);
+assert.match(page, /aria-label="Macro detail"/);
+assert.match(page, /What is happening now\?/);
+assert.match(page, /Why pressure is active:/);
+assert.match(page, /label="Inflection"/);
+assert.match(page, /inflectionActive/);
+assert.doesNotMatch(page, /label="Eclipse climate"/);
+assert.match(page, /Active transit evidence and score contribution/);
+assert.match(page, /Applying transits — next 14 days/);
+assert.match(page, /Next 30 Days/);
+assert.match(page, /Astro State Legend/);
+assert.match(page, /Simple View/);
 assert.match(page, /Research View/);
-assert.match(page, /Astro engine interpretation/);
-assert.match(page, /complete v37\.9\.14 natal, transit, eclipse, window and scoring ledger/);
-assert.match(page, /not personalised investment advice/);
-assert.match(page, /scores describe structure and intensity/i);
-assert.match(page, /fetchHistoricalReplay/);
-assert.match(page, /\/api\/engine\/replay/);
+assert.match(page, /30–60 Day Path/);
+assert.match(page, /function AstroGateCell/);
+assert.match(page, /catalyst_net_expression/);
+assert.match(page, /<AstroGateCell stock=\{stock\}/);
+assert.match(page, /Cycle \/ Rerating Potential/);
+assert.match(page, /Current Leadership \/100/);
+assert.match(page, /Forward Leadership \/100/);
+assert.match(page, /Cycle Runway/);
+assert.match(page, /What this means:/);
+assert.match(page, /3–18 months/);
+assert.match(page, /What to expect/);
+assert.match(page, /Likely sequence/);
+assert.match(page, /Astro Synopsis/);
+assert.match(page, /Scores & Cycle Position/);
+assert.match(page, /Natal Chart & Behaviour/);
+assert.match(page, /Current Transit Evidence/);
+assert.match(page, /Temporal Sovereignty Evidence/);
+assert.match(page, /Advanced Rerating Cross-check/);
+assert.match(page, /Long-Cycle Map/);
+assert.doesNotMatch(page, /Strategic horizon", "Day 61 through 18 months/);
+assert.match(page, /role="dialog"/);
+assert.match(page, /stockCardHref/);
+assert.match(page, /Open pop-up/);
+assert.match(page, /Open new tab/);
 assert.match(page, /modal-backdrop/);
 
 // Macro sovereignty: reset/inflection force must not inflate supportive

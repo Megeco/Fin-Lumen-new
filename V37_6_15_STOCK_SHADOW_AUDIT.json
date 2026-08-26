@@ -1,0 +1,323 @@
+{
+  "generatedAt": "2026-08-18T12:01:43.658Z",
+  "replayDate": "2024-08-15",
+  "mode": "TEMPORAL_INTERPRETATION_WITH_PRESERVED_RAW_ASTROLOGY",
+  "rawAstrologyParity": "PASS",
+  "results": [
+    {
+      "ticker": "ANANTRAJ.NS",
+      "authoritative": {
+        "state": "RERATING ESTABLISHED",
+        "expansion": 63,
+        "pressure": 50,
+        "leadership": 63,
+        "runway": 84
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 51,
+        "runwayLevel": "LOW",
+        "episodes": 3,
+        "seriousPressureEpisodes": 2,
+        "unresolvedPressureEpisodes": 1
+      }
+    },
+    {
+      "ticker": "BEL.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 57,
+        "pressure": 52,
+        "leadership": 55,
+        "runway": 88
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 52,
+        "runwayLevel": "LOW",
+        "episodes": 3,
+        "seriousPressureEpisodes": 1,
+        "unresolvedPressureEpisodes": 1
+      }
+    },
+    {
+      "ticker": "BAJAJFINANCE.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 61,
+        "pressure": 50,
+        "leadership": 61,
+        "runway": 84
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 59,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 3,
+        "seriousPressureEpisodes": 1,
+        "unresolvedPressureEpisodes": 0
+      }
+    },
+    {
+      "ticker": "COCHINSHIP.NS",
+      "authoritative": {
+        "state": "EXPANSION STRENGTHENING",
+        "expansion": 70,
+        "pressure": 54,
+        "leadership": 66,
+        "runway": 84
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "RELEASING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "CONTESTED_SUPPORT",
+        "runway": 0,
+        "runwayLevel": "LOW",
+        "episodes": 0,
+        "seriousPressureEpisodes": 3,
+        "unresolvedPressureEpisodes": 3
+      }
+    },
+    {
+      "ticker": "ICICIBANK.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 62,
+        "pressure": 51,
+        "leadership": 61,
+        "runway": 75
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "PEAKING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 36,
+        "runwayLevel": "LOW",
+        "episodes": 1,
+        "seriousPressureEpisodes": 1,
+        "unresolvedPressureEpisodes": 1
+      }
+    },
+    {
+      "ticker": "ETERNAL.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 58,
+        "pressure": 52,
+        "leadership": 57,
+        "runway": 78
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 71,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 3,
+        "seriousPressureEpisodes": 1,
+        "unresolvedPressureEpisodes": 0
+      }
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 69,
+        "pressure": 56,
+        "leadership": 63,
+        "runway": 85
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "PEAKING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 60,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 3,
+        "seriousPressureEpisodes": 3,
+        "unresolvedPressureEpisodes": 1
+      }
+    },
+    {
+      "ticker": "VEDL.NS",
+      "authoritative": {
+        "state": "PEAK PRESSURE",
+        "expansion": 71,
+        "pressure": 65,
+        "leadership": 53,
+        "runway": 0
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "RELEASING",
+        "pressureOutcome": "BREAK_RISK_WITH_LATER_REPAIR_POTENTIAL",
+        "expansionConversion": "SUPPORT_DECAY_RENEWED_PRESSURE",
+        "runway": 54,
+        "runwayLevel": "LOW",
+        "episodes": 4,
+        "seriousPressureEpisodes": 3,
+        "unresolvedPressureEpisodes": 0
+      }
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "authoritative": {
+        "state": "PEAK PRESSURE",
+        "expansion": 61,
+        "pressure": 76,
+        "leadership": 34,
+        "runway": 0
+      },
+      "shadow": {
+        "pressurePhase": "STABLE",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "BREAK_RISK_WITH_LATER_REPAIR_POTENTIAL",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 21,
+        "runwayLevel": "LOW",
+        "episodes": 2,
+        "seriousPressureEpisodes": 5,
+        "unresolvedPressureEpisodes": 2
+      }
+    },
+    {
+      "ticker": "CUMMINSIND.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 67,
+        "pressure": 61,
+        "leadership": 54,
+        "runway": 86
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 65,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 3,
+        "seriousPressureEpisodes": 2,
+        "unresolvedPressureEpisodes": 1
+      }
+    },
+    {
+      "ticker": "ENGINERSIN.NS",
+      "authoritative": {
+        "state": "PEAK PRESSURE",
+        "expansion": 68,
+        "pressure": 75,
+        "leadership": 39,
+        "runway": 14
+      },
+      "shadow": {
+        "pressurePhase": "STABLE",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "ABSORBED_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 59,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 4,
+        "seriousPressureEpisodes": 4,
+        "unresolvedPressureEpisodes": 1
+      }
+    },
+    {
+      "ticker": "TRENT.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 55,
+        "pressure": 52,
+        "leadership": 53,
+        "runway": 79
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 59,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 3,
+        "seriousPressureEpisodes": 2,
+        "unresolvedPressureEpisodes": 0
+      }
+    },
+    {
+      "ticker": "CDSL.NS",
+      "authoritative": {
+        "state": "RERATING ESTABLISHED",
+        "expansion": 69,
+        "pressure": 55,
+        "leadership": 65,
+        "runway": 87
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "STABLE",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "EARLY_EXPANSION",
+        "runway": 57,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 4,
+        "seriousPressureEpisodes": 4,
+        "unresolvedPressureEpisodes": 1
+      }
+    },
+    {
+      "ticker": "DMART.NS",
+      "authoritative": {
+        "state": "EXPANSION STRENGTHENING",
+        "expansion": 68,
+        "pressure": 52,
+        "leadership": 66,
+        "runway": 82
+      },
+      "shadow": {
+        "pressurePhase": "BUILDING",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "CONTESTED_SUPPORT",
+        "runway": 19,
+        "runwayLevel": "LOW",
+        "episodes": 2,
+        "seriousPressureEpisodes": 3,
+        "unresolvedPressureEpisodes": 3
+      }
+    },
+    {
+      "ticker": "LUPIN.NS",
+      "authoritative": {
+        "state": "RERATING PAUSING",
+        "expansion": 58,
+        "pressure": 50,
+        "leadership": 58,
+        "runway": 86
+      },
+      "shadow": {
+        "pressurePhase": "STABLE",
+        "expansionPhase": "BUILDING",
+        "pressureOutcome": "NO_SEVERE_CURRENT_PRESSURE",
+        "expansionConversion": "SUPPORT_PRESENT",
+        "runway": 59,
+        "runwayLevel": "DEVELOPING",
+        "episodes": 4,
+        "seriousPressureEpisodes": 1,
+        "unresolvedPressureEpisodes": 0
+      }
+    }
+  ]
+}

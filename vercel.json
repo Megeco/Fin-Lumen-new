@@ -1,4 +1,4 @@
 {
-  "installCommand": "npm install --registry=https://registry.npmjs.org/ --no-package-lock --no-audit --no-fund --legacy-peer-deps --ignore-scripts=false && npm rebuild @swisseph/node",
+  "installCommand": "npm install --registry=https://registry.npmjs.org/ --no-package-lock --no-audit --no-fund --legacy-peer-deps",
   "buildCommand": "npm run build"
 }

@@ -1,0 +1,268 @@
+{
+  "generatedAt": "2026-08-18T12:02:04.262Z",
+  "dates": [
+    "2024-08-15",
+    "2024-08-30"
+  ],
+  "authoritativeMedianDelta": 2,
+  "shadowMedianDelta": 0,
+  "authoritativeLargeJumps": 1,
+  "shadowLargeJumps": 0,
+  "rows": [
+    {
+      "ticker": "ANANTRAJ.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 84,
+          "shadowRunway": 51
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 84,
+          "shadowRunway": 51
+        }
+      ],
+      "authoritativeDelta": 0,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "BEL.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 88,
+          "shadowRunway": 52
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 89,
+          "shadowRunway": 52
+        }
+      ],
+      "authoritativeDelta": 1,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "BAJAJFINANCE.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 84,
+          "shadowRunway": 59
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 84,
+          "shadowRunway": 51
+        }
+      ],
+      "authoritativeDelta": 0,
+      "shadowDelta": 8
+    },
+    {
+      "ticker": "COCHINSHIP.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 84,
+          "shadowRunway": 0
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 67,
+          "shadowRunway": 0
+        }
+      ],
+      "authoritativeDelta": 17,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "ICICIBANK.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 75,
+          "shadowRunway": 36
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 82,
+          "shadowRunway": 36
+        }
+      ],
+      "authoritativeDelta": 7,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "ETERNAL.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 78,
+          "shadowRunway": 71
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 80,
+          "shadowRunway": 72
+        }
+      ],
+      "authoritativeDelta": 2,
+      "shadowDelta": 1
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 85,
+          "shadowRunway": 60
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 80,
+          "shadowRunway": 60
+        }
+      ],
+      "authoritativeDelta": 5,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "VEDL.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 0,
+          "shadowRunway": 54
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 0,
+          "shadowRunway": 54
+        }
+      ],
+      "authoritativeDelta": 0,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "TATAPOWER.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 0,
+          "shadowRunway": 21
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 0,
+          "shadowRunway": 21
+        }
+      ],
+      "authoritativeDelta": 0,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "CUMMINSIND.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 86,
+          "shadowRunway": 65
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 87,
+          "shadowRunway": 66
+        }
+      ],
+      "authoritativeDelta": 1,
+      "shadowDelta": 1
+    },
+    {
+      "ticker": "ENGINERSIN.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 14,
+          "shadowRunway": 59
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 6,
+          "shadowRunway": 59
+        }
+      ],
+      "authoritativeDelta": 8,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "TRENT.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 79,
+          "shadowRunway": 59
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 82,
+          "shadowRunway": 59
+        }
+      ],
+      "authoritativeDelta": 3,
+      "shadowDelta": 0
+    },
+    {
+      "ticker": "CDSL.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 87,
+          "shadowRunway": 57
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 83,
+          "shadowRunway": 60
+        }
+      ],
+      "authoritativeDelta": 4,
+      "shadowDelta": 3
+    },
+    {
+      "ticker": "DMART.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 82,
+          "shadowRunway": 19
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 83,
+          "shadowRunway": 6
+        }
+      ],
+      "authoritativeDelta": 1,
+      "shadowDelta": 13
+    },
+    {
+      "ticker": "LUPIN.NS",
+      "values": [
+        {
+          "date": "2024-08-15",
+          "authoritativeRunway": 86,
+          "shadowRunway": 59
+        },
+        {
+          "date": "2024-08-30",
+          "authoritativeRunway": 89,
+          "shadowRunway": 59
+        }
+      ],
+      "authoritativeDelta": 3,
+      "shadowDelta": 0
+    }
+  ]
+}
