@@ -8,7 +8,19 @@
     "start": "next start",
     "test": "node --no-warnings tests/runV373PureAstroAcceptance.js",
     "test:pure": "node --no-warnings tests/runV373PureAstroAcceptance.js",
-    "test:replay-parity": "node --no-warnings tests/runV376ReplayLiveParity.js"
+    "test:stock-smoke": "node --no-warnings tests/runProductionStockSmoke.js",
+    "test:natal-additions": "node --no-warnings tests/runV3751NatalAdditions.js",
+    "test:shadow": "node --no-warnings tests/runV376ShadowAssessment.js",
+    "test:shadow-panel": "node --no-warnings tests/runV376FifteenStockShadowAudit.js",
+    "test:shadow-stability": "node --no-warnings tests/runV376RunwayStability.js",
+    "test:replay-parity": "node --no-warnings tests/runV376ReplayLiveParity.js",
+    "test:rerating-evidence": "node --no-warnings tests/runV3762ReratingEvidence.js",
+    "test:rerating-architecture": "node --no-warnings tests/runV377ReratingArchitecture.js",
+    "test:temporal-sovereignty": "node --no-warnings tests/runV378TemporalSovereignty.js",
+    "test:role-charts": "node --no-warnings tests/runV378RoleChartIntegration.js",
+    "audit:natal": "node scripts/auditNatalSovereignty.js",
+    "audit:natal:two-year": "node scripts/auditNatalSovereignty.js --two-year",
+    "audit:natal:check": "node scripts/auditNatalSovereignty.js --self-test"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.50.0",

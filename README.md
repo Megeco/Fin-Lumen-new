@@ -1,14 +1,12 @@
 # Fin-Lumen Pure Astro v37.9.14 — Full Macro Transit Windows Lock Candidate
 
-## Vercel deployment package
+## Definitive Vercel edition
 
-This is the single-project Vercel package: the subscriber-facing Fin-Lumen dashboard is the home page and the full v37.9.14 Swiss Ephemeris engine runs in the same deployment.
+This is the complete single-project Vercel package. The subscriber-facing Fin-Lumen dashboard is the home page, while the full v37.9.14 Swiss Ephemeris engine, macro engine, natal registry, current readings, replay laboratory, stock administration APIs, precision tools, and update route run behind it in the same Next.js deployment.
 
-Upload this folder to GitHub, then import that repository into Vercel with the **Next.js** framework preset. Leave the build and output settings at their defaults. The project contains fewer than 100 source files; do not upload `node_modules`, `.next`, or `.npm-cache`.
+The package contains 91 deployable source files. Upload the extracted contents to a new GitHub repository, import that repository into Vercel, select the **Next.js** framework preset, and leave the build and output settings at their defaults. Do not upload `node_modules`, `.next`, `.npm-cache`, or `tsconfig.tsbuildinfo`.
 
-The daily watchlist refresh, approved natal registry, current engine readings, full research ledger, and historical replay are all included. Historical replays are available from 1990 through the present date.
-
-> **GitHub compact edition:** This folder retains the complete production dependency graph for current readings, approved natal lookup, Swiss Ephemeris calculation and Historical Sky Replay. It also includes the primary acceptance suite and 30-stock Replay/live parity suite. Redundant development studies, duplicate legacy endpoints and archived audit reports remain preserved in the authoritative full backup but are not required to run this edition.
+The dashboard refreshes saved readings once per IST calendar day, loads the live macro field from `/api/macro`, and permits Historical Sky Replay from 1990 through the current date. The full runtime libraries and APIs are included; redundant test-runner files are omitted only to remain below GitHub's 100-file browser-upload limit.
 
 ## What this release is
 
