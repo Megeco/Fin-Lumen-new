@@ -879,19 +879,20 @@ function ShadowReratingCell({ assessment }) {
   return <div className="event-cell shadow-rerating" title={`Research View only · present state ${human(assessment.presentState)}`}><strong>{outlook.label}</strong><span>Ignition {formatDate(outlook.projectedIgnition)}</span><span>Active {range(outlook.activeWindow)}</span></div>;
 }
 
-function StockTable({ stocks, researchView, horizonView = "COMBINED", onSelect }) {
-  const overviewHeaders = [
+function StockTable({ stocks, researchView, onSelect }) {
+  const simpleHeaders = [
     "Stock",
-    "Current reading",
+    "Regime",
+    "Current Leadership /100",
     "Pressure /100",
     "Expansion /100",
-    "Active window",
-    "What changes next",
-    "24-month astro potential",
-    "Chart confidence"
+    "30–60 Day Path",
+    "Next Astro Gate",
+    "Cycle / Rerating Potential",
+    "Correction Mode",
+    "Forward Leadership /100",
+    "Strategic Path"
   ];
-  const positionalHeaders = ["Stock", "Current reading", "Pressure /100", "Expansion /100", "Active window", "Next 45-day path", "What changes next", "Chart confidence"];
-  const investorHeaders = ["Stock", "Current reading", "24-month astro potential", "Forward leadership /100", "Long-cycle structure", "Pressure interruptions", "Chart confidence"];
   const researchHeaders = [
     "Stock",
     "Natal Chart Type",
@@ -913,7 +914,7 @@ function StockTable({ stocks, researchView, horizonView = "COMBINED", onSelect }
   ];
   return (
     <div className={`table-scroll ${researchView ? "research-table" : "simple-table"}`}>
-      <table><thead><tr>{(researchView ? researchHeaders : horizonView === "POSITIONAL" ? positionalHeaders : horizonView === "INVESTOR" ? investorHeaders : overviewHeaders).map(header => <th key={header}><ColumnHeader label={header} /></th>)}</tr></thead><tbody>
+      <table><thead><tr>{(researchView ? researchHeaders : simpleHeaders).map(header => <th key={header}><ColumnHeader label={header} /></th>)}</tr></thead><tbody>
         {stocks.map(stock => {
           const model = stock.astro_model;
           const chartType = stock.natal_chart_type || "";
@@ -934,11 +935,6 @@ function StockTable({ stocks, researchView, horizonView = "COMBINED", onSelect }
           const correctionCell = <td><Badge tone={toneForState(model?.current?.correctionMode)}>{correctionModeLabel(model)}</Badge></td>;
           const forwardLeadershipCell = <td className="score-cell"><strong>{model?.scores?.forwardLeadership ?? "—"}</strong><span>{scoreLabel(model?.scores?.forwardLeadership)}</span></td>;
           const strategicCell = <td><div className={`event-cell ${strategic.tone}`} title={strategic.title}><strong>{strategic.title}</strong><span>{strategic.date}</span></div></td>;
-          const activeWindowCell = <td><EventCell event={model?.windows?.rerating || model?.windows?.pressure || tactical} empty="Current expression continues" /></td>;
-          const changesNextCell = <td><AstroGateCell stock={stock} /></td>;
-          const potentialCell = <td className="cycle-cell">{model ? <><strong>{model.cycle.level} · {model.cycle.score}/100</strong><span>Astrological cycle measure, not a return forecast</span></> : "—"}</td>;
-          const confidenceCell = <td className="score-cell"><strong>{model?.natal?.reliability ?? "—"}</strong><span>{human(model?.natal?.chartAuthority || "Natal pending")}</span></td>;
-          const interruptionsCell = <td><EventCell event={model?.windows?.breakRisk || model?.windows?.pressure} empty="No separate pressure interruption mapped" /></td>;
           return (
             <tr key={stock.name} className={`stock-row ${tone}`} onClick={() => onSelect(stock.name)} title="Click for the expanded astro card">
               {stockCell}
@@ -953,7 +949,7 @@ function StockTable({ stocks, researchView, horizonView = "COMBINED", onSelect }
                 {correctionCell}{forwardLeadershipCell}
                 <td><div className="clamped-cell" title={stock.transit_receptor_expression}>{stock.transit_receptor_expression || "—"}</div></td>
                 <td><div className="clamped-cell" title={neutralAstroLanguage(stock.top_transits)}>{clamp(neutralAstroLanguage(stock.top_transits), 155)}</div></td>
-              </> : horizonView === "POSITIONAL" ? <>{regimeCell}{pressureCell}{expansionCell}{activeWindowCell}{tacticalCell}{changesNextCell}{confidenceCell}</> : horizonView === "INVESTOR" ? <>{regimeCell}{potentialCell}{forwardLeadershipCell}{strategicCell}{interruptionsCell}{confidenceCell}</> : <>{regimeCell}{pressureCell}{expansionCell}{activeWindowCell}{changesNextCell}{potentialCell}{confidenceCell}</>}
+              </> : <>{regimeCell}{currentLeadershipCell}{pressureCell}{expansionCell}{tacticalCell}{nextGateCell}{cycleCell}{correctionCell}{forwardLeadershipCell}{strategicCell}</>}
             </tr>
           );
         })}
@@ -1020,7 +1016,6 @@ export default function Home() {
   const [filter, setFilter] = useState("ALL");
   const [sort, setSort] = useState("NAME");
   const [researchView, setResearchView] = useState(false);
-  const [horizonView, setHorizonView] = useState("COMBINED");
   const [newSymbol, setNewSymbol] = useState("");
   const [natalTarget, setNatalTarget] = useState(null);
   const [status, setStatus] = useState("Loading Swiss-backed model…");
@@ -1071,17 +1066,17 @@ export default function Home() {
           {selectedStock ? <PureAstroCard stock={selectedStock} standalone onClose={closeStandalone} onDelete={deleteStock} /> : <section className="panel empty">{status}</section>}
         </div>
       ) : <>
-        <header className="hero"><div><div className="eyebrow">Fin-Lumen Financial Astrology</div><h1>See the pressure, expansion and turning points around a stock.</h1><p>A research-led map of dated astrological conditions — not price targets, trading calls, or personalised advice.</p></div><button className="primary" onClick={() => fetchAll(true)}>Refresh readings</button></header>
+        <header className="hero"><div><div className="eyebrow">Fin-Lumen Pure Astro</div><h1>Pressure, Expansion & Rerating Map</h1><p>Real Swiss Ephemeris · sidereal Lahiri · natal-receptor astrology · no price inputs · no trading instructions</p></div><button className="primary" onClick={() => fetchAll(true)}>Refresh model</button></header>
         <EnvironmentTabs active={environmentView} onChange={setEnvironmentView} />
         {environmentView === "MACRO" ? <MacroPanel macro={macro} /> : null}
         {environmentView === "NEXT30" ? <Next30DaysPanel macro={macro} /> : null}
         {environmentView === "LEGEND" ? <AstroLegend /> : null}
-        {/* Legacy editor flow retained behind the publication layer: Add stock + natal details; requestedStock={natalTarget}. */}
-        <section className="panel add-panel"><div><div className="eyebrow">Your watchlist</div><h2>Look up a stock</h2><div className="muted">Enter a verified symbol to view its current Fin-Lumen reading. Complex company histories are reviewed before one canonical chart is published.</div></div><div className="add-control"><input placeholder="ICICIBANK.NS" value={newSymbol} onChange={event => setNewSymbol(event.target.value.toUpperCase())} onKeyDown={event => event.key === "Enter" && addStock()} /><button onClick={addStock}>Request reading</button></div><div className="muted">{status}</div></section>
+        <section className="panel add-panel"><div><div className="eyebrow">Stock universe</div><h2>Add or inspect a stock</h2><div className="muted">Add a symbol and its natal-details form will open immediately, prefilled with that stock. It remains Natal Pending until the chart is saved.</div></div><div className="add-control"><input placeholder="VOLTAMP.NS" value={newSymbol} onChange={event => setNewSymbol(event.target.value.toUpperCase())} onKeyDown={event => event.key === "Enter" && addStock()} /><button onClick={addStock}>Add stock + natal details</button><a className="button-link" href="#natal-registry">Edit existing natal data</a></div><div className="muted">{status}</div></section>
+        <NatalEditor stocks={stocks} requestedStock={natalTarget} onSaved={() => fetchAll(true)} />
         <PriorityPanels stocks={stocks} onSelect={setSelected} />
-        <section className="panel scanner-panel"><div className="section-head"><div><div className="eyebrow">Stock-Specific Astro Behaviour</div><h2>Stock scanner</h2><div className="muted">Start with what is active now, then open any stock for its dated paths and full astrological evidence.</div></div><div className="view-tabs" role="group" aria-label="Table detail"><button className={!researchView ? "active" : ""} aria-pressed={!researchView} onClick={() => setResearchView(false)}>Simple View</button><button className={researchView ? "active" : ""} aria-pressed={researchView} onClick={() => setResearchView(true)}>Research View</button></div></div>{!researchView ? <div className="horizon-tabs" role="group" aria-label="Reading horizon"><button className={horizonView === "COMBINED" ? "active" : ""} onClick={() => setHorizonView("COMBINED")}>Combined overview</button><button className={horizonView === "POSITIONAL" ? "active" : ""} onClick={() => setHorizonView("POSITIONAL")}>Positional · 45 days</button><button className={horizonView === "INVESTOR" ? "active" : ""} onClick={() => setHorizonView("INVESTOR")}>Investor · 24 months</button></div> : null}<ScoreGuide /><div className="controls"><label>Show<select value={filter} onChange={event => setFilter(event.target.value)}><option value="ALL">All stocks</option><option value="EXPANSION">Expansion-biased</option><option value="PRESSURE">Pressure-biased</option><option value="RERATING">Rerating window mapped</option><option value="BREAK">Break-Risk mapped</option><option value="PENDING">Reading being prepared</option></select></label><label>Sort<select value={sort} onChange={event => setSort(event.target.value)}><option value="NAME">Stock name</option><option value="RUNWAY">24-month astro potential</option><option value="LEADERSHIP">Current leadership</option><option value="RERATING">Nearest rerating window</option><option value="PRESSURE">Nearest pressure window</option></select></label><span className="muted">{visible.length} of {stocks.length} shown</span><span className="table-hint">Open a row for the expanded reading</span></div><StockTable stocks={visible} researchView={researchView} horizonView={horizonView} onSelect={setSelected} /></section>
+        <section className="panel scanner-panel"><div className="section-head"><div><div className="eyebrow">Stock-Specific Astro Behaviour</div><h2>Pressure and expansion scanner</h2><div className="muted">Familiar scanner information in a denser, score-explicit layout. Simple View is for rapid scanning; Research View keeps the full evidence table.</div></div><div className="view-tabs" role="group" aria-label="Table detail"><button className={!researchView ? "active" : ""} aria-pressed={!researchView} onClick={() => setResearchView(false)}>Simple View</button><button className={researchView ? "active" : ""} aria-pressed={researchView} onClick={() => setResearchView(true)}>Research View</button></div></div><ScoreGuide /><div className="controls"><label>View<select value={filter} onChange={event => setFilter(event.target.value)}><option value="ALL">All stocks</option><option value="EXPANSION">Expansion-biased</option><option value="PRESSURE">Pressure-biased</option><option value="RERATING">Rerating window mapped</option><option value="BREAK">Break-Risk mapped</option><option value="PENDING">Natal pending</option></select></label><label>Sort<select value={sort} onChange={event => setSort(event.target.value)}><option value="NAME">Stock name</option><option value="RUNWAY">Cycle runway</option><option value="LEADERSHIP">Current leadership</option><option value="RERATING">Nearest rerating window</option><option value="PRESSURE">Nearest pressure window</option></select></label><span className="muted">{visible.length} of {stocks.length} shown</span><span className="table-hint">Click a row for the pop-up card · right-click the stock name to open separately</span></div><StockTable stocks={visible} researchView={researchView} onSelect={setSelected} /></section>
         <ReplayLab />
-        <footer>Fin-Lumen Financial Astrology · v37.9.14 calculation engine · Swiss Ephemeris · sidereal Lahiri · educational research only</footer>
+        <footer>Fin-Lumen v37.9.14 · full-window lock candidate · stock episodes + macro transit ranges + selected-date status · Swiss Ephemeris hard-fail astronomy</footer>
         <StockCardModal stock={selectedStock} onClose={() => setSelected("")} onDelete={deleteStock} />
       </>}
       <style jsx global>{`
@@ -1124,7 +1119,6 @@ export default function Home() {
         .form-grid{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:12px;margin-top:16px}.form-grid label,.replay-form label,.controls label{display:grid;gap:5px;font-size:12px;font-weight:750;color:#475569}.form-grid label input,.form-grid label select{width:100%}.wide{grid-column:1/-1}.form-actions{display:flex;align-items:center;gap:12px}
         .priority-grid{display:grid;grid-template-columns:repeat(4,minmax(200px,1fr));gap:12px;margin-bottom:16px}.priority-card{background:white;border:1px solid #dce4ef;border-radius:12px;padding:12px}.priority-card button{display:flex;width:100%;justify-content:space-between;margin-top:7px;text-align:left;padding:7px 8px}
         .view-tabs{display:inline-flex;border:1px solid #aab8ca;border-radius:10px;padding:3px;background:#edf2f7;white-space:nowrap}.view-tabs button{border:0;border-radius:7px;background:transparent;padding:8px 13px;color:#526176}.view-tabs button.active{background:white;color:#0f766e;box-shadow:0 1px 4px rgba(15,23,42,.16)}
-        .horizon-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0 2px}.horizon-tabs button{background:#f8fafc;color:#475569}.horizon-tabs button.active{background:#0f766e;color:#fff;border-color:#0f766e}
         .score-guide{margin-top:12px;border:1px solid #cfd9e6;border-radius:10px;background:#f8fafc;padding:10px 12px}.score-guide summary{cursor:pointer;font-weight:850;color:#334155}.score-guide-note{font-size:12px;color:#526176;line-height:1.45;margin-top:8px}.score-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:8px;margin-top:9px}.score-guide-grid>div{background:white;border:1px solid #dde5ef;border-radius:8px;padding:9px}.score-guide-grid strong,.score-guide-grid span{display:block}.score-guide-grid span{font-size:12px;color:#64748b;margin-top:3px}
         .controls{display:flex;align-items:end;gap:14px;margin:12px 0;flex-wrap:wrap}.table-hint{margin-left:auto;font-size:12px;color:#526176;background:#f1f5f9;border-radius:8px;padding:8px 10px}
         .table-scroll{overflow:auto;border:1px solid #b8c7d9;border-radius:10px;background:#fff;max-height:72vh;box-shadow:inset 0 1px 0 #fff}

@@ -1,5 +1,15 @@
 # Fin-Lumen Pure Astro v37.9.14 — Full Macro Transit Windows Lock Candidate
 
+## Vercel deployment package
+
+This is the single-project Vercel package: the subscriber-facing Fin-Lumen dashboard is the home page and the full v37.9.14 Swiss Ephemeris engine runs in the same deployment.
+
+Upload this folder to GitHub, then import that repository into Vercel with the **Next.js** framework preset. Leave the build and output settings at their defaults. The project contains fewer than 100 source files; do not upload `node_modules`, `.next`, or `.npm-cache`.
+
+The daily watchlist refresh, approved natal registry, current engine readings, full research ledger, and historical replay are all included. Historical replays are available from 1990 through the present date.
+
+> **GitHub compact edition:** This folder retains the complete production dependency graph for current readings, approved natal lookup, Swiss Ephemeris calculation and Historical Sky Replay. It also includes the primary acceptance suite and 30-stock Replay/live parity suite. Redundant development studies, duplicate legacy endpoints and archived audit reports remain preserved in the authoritative full backup but are not required to run this edition.
+
 ## What this release is
 
 v37.9.14 preserves the complete Swiss-Ephemeris, sidereal-Lahiri astrology,
