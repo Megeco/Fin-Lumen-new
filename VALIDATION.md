@@ -16,6 +16,7 @@
 - The add-stock selector contains 90 entries and every advertised ticker resolves to a bundled chart (including the AIAENG alias). Hindustan Unilever and Britannia were removed from the selector because their charts are not in this registry.
 - All 90 advertised companies completed the full current reading and forward-window calculation for 7 September 2026; zero calculations failed.
 - The summary drawer, expanded drawer, and new-tab card all use the ChatGPT Site card component and styling. The older full-screen research modal is not routed by this build.
+- A contaminated-repository build test injects obsolete Supabase API files before `npm run build`; the guarded pre-build cleanup removes them and the production build still succeeds with only the four current API routes.
 
 | Company | Sky date | Engine reading | E /100 | P /100 |
 | --- | --- | --- | --- | --- |

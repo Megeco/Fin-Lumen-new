@@ -32,7 +32,7 @@ assert(!source.includes('2026-08-20'),'Static publication date survived');
 assert(!source.includes('/api/company-admissions'),'Shared request queue survived');
 assert(source.includes('drawer-expanded'),'GPT expanded-card state is missing');
 assert(source.includes('Open in new tab'),'New-tab card control is missing');
-assert(source.includes('Personal build 37.9.14.2'),'Visible deployment marker is missing');
+assert(source.includes('Personal build 37.9.14.3'),'Visible deployment marker is missing');
 const packageJson=JSON.parse(fs.readFileSync(new URL('../package.json',import.meta.url),'utf8'));
 assert(!Object.keys(packageJson.dependencies).some(name=>name.toLowerCase().includes('supabase')),'External database dependency survived');
 console.table(results);console.log('Swiss runtime:',JSON.stringify(swissRuntimeAudit(new Date('2026-09-07T12:00:00Z'))));

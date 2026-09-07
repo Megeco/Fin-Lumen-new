@@ -1,9 +1,10 @@
 {
   "name": "fin-lumen-pure-astro",
-  "version": "37.9.14-personal.2",
+  "version": "37.9.14-personal.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/prepareCleanBuild.mjs",
     "build": "next build",
     "start": "next start",
     "test": "node --no-warnings tests/runPersonalBuild.mjs",
