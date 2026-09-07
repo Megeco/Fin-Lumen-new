@@ -1,3 +1,5 @@
+import { validDate } from "./engine/stock.js";
+export const config = {maxDuration:60};
 import {
   resolveCompany
 } from "../../lib/companyResolver.js";
@@ -232,6 +234,9 @@ function buildReplaySummary({ company, natal, replay, macroSnapshot, windows, fo
 }
 
 export default async function handler(req, res) {
+  if(req.method && req.method!=="GET")return res.status(405).json({error:"Use GET."});
+  if(!validDate(req.query.date))return res.status(400).json({error:"Invalid replay date."});
+  if(res.setHeader)res.setHeader("Cache-Control","no-store");
   try {
     const ticker = String(req.query.ticker || "").trim();
     const date = String(req.query.date || "").trim();
@@ -366,8 +371,7 @@ export default async function handler(req, res) {
     return res.status(500).json({
       success: false,
       route: "/api/replay-lab",
-      error: err.message,
-      stack: err.stack
+      error: err.message
     });
   }
 }

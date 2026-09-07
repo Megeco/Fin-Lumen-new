@@ -12,6 +12,10 @@
 - Server function dependency traces include `sepl_18.se1`, `semo_18.se1`, `seas_18.se1`, `sefstars.txt`, and `prebuilds/linux-x64/swisseph.node`.
 - Source comparison against supplied ZIP: all astrology library files identical except `companyResolver.js`, whose external database lookup is disabled. No scoring or interpretation rule changed.
 - Fixed publication data and shared company-admission requests removed from interface.
+- External database code and dependency removed; the former configuration error is absent from the runtime source.
+- The add-stock selector contains 90 entries and every advertised ticker resolves to a bundled chart (including the AIAENG alias). Hindustan Unilever and Britannia were removed from the selector because their charts are not in this registry.
+- All 90 advertised companies completed the full current reading and forward-window calculation for 7 September 2026; zero calculations failed.
+- The summary drawer, expanded drawer, and new-tab card all use the ChatGPT Site card component and styling. The older full-screen research modal is not routed by this build.
 
 | Company | Sky date | Engine reading | E /100 | P /100 |
 | --- | --- | --- | --- | --- |

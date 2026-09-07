@@ -1,6 +1,6 @@
 # Fin-Lumen · Personal Research
 
-Complete Vercel deployment package — v37.9.14-personal.1.
+Complete Vercel deployment package — v37.9.14-personal.2.
 
 Uses the interface from the Fin-Lumen ChatGPT Site with the v37.9.14 astrology engine from your supplied ZIP. No ChatGPT API key, Supabase account, external database, or subscription system is required.
 
@@ -14,13 +14,17 @@ Uses the interface from the Fin-Lumen ChatGPT Site with the v37.9.14 astrology e
 6. Check Replay Lab with ICICIBANK and 15 August 2024. This build should return Rerating pausing, expansion 62/100 and pressure 51/100.
 7. Share the Vercel URL with your friends. Each browser starts with the same ten companies and then saves its own additions and removals.
 
-This is a complete application, not an update patch. Do not overlay it on an older repository or preserve obsolete API files. If reusing a Vercel project, clear custom build/output overrides and any old external-engine URL configuration.
+After deployment, confirm that the footer below the stock table says **Personal build 37.9.14.2**. That visible marker is the quickest way to distinguish this build from the older Vercel interface.
+
+This is a complete application, not an update patch. Do not overlay it on an older repository or preserve obsolete API files. The correct deployment has a dark navy FIN–LUMEN header, a “Personal research · Friends & family” introduction, a side-drawer stock card, and “Personal build 37.9.14.2” beneath the table. If you see “Look up a stock,” “Refresh readings,” the old full-screen research card, or any database-configuration message, Vercel is still building the old repository contents.
+
+If reusing a Vercel project, replace the repository contents completely, clear custom build/output overrides and remove old environment variables. A fresh GitHub repository is the safest route because GitHub’s browser upload does not delete obsolete files from an existing repository.
 
 ## Separate personal tables
 
 - Each browser profile stores only its own watchlist and preferred horizon view using localStorage.
 - Adding or removing a company does not modify anyone else's watchlist or the bundled universe.
-- Limit: 100 companies per browser profile. Only companies supported by the bundled natal registry can be calculated; unknown companies return a clear error.
+- Limit: 100 companies per browser profile. The add-stock box lists the 90 companies supported by the bundled natal registry. Unknown companies return a clear reviewed-chart-unavailable message and are not added.
 - Clearing site data, private browsing, changing browser profiles, or switching to a different domain can reset the table. Different devices do not sync. People sharing one browser profile share that profile's table.
 - There are no accounts or login gate. Watchlist separation is not access control for the website: anyone who can access the deployment URL can use the research interface.
 - Server memory may cache identical company/date calculations for speed. It stores no shared watchlists and is not required for persistence.

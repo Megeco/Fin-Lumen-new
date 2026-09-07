@@ -1,43 +1,38 @@
-import { astroEngine } from "../../../lib/astroEngine.js";
+import { astroEngine } from '../../../lib/astroEngine.js';
+import registry from '../../../lib/natalRegistry.js';
 
-function cleanTicker(value) {
-  return String(value || "").trim().toUpperCase().replace(/\.(NS|BO)$/i, "").replace(/[^A-Z0-9&-]/g, "");
+export const config = { maxDuration: 60 };
+export function todayIST() {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+  return `${parts.year}-${parts.month}-${parts.day}`;
 }
-
-function istDate() {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit"
-  }).formatToParts(new Date());
-  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
-  return `${values.year}-${values.month}-${values.day}`;
+export function validDate(value) {
+  return typeof value==='string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value+'T12:00:00Z')) && new Date(value+'T12:00:00Z').toISOString().slice(0,10)===value && value>='1900-01-01' && value<=todayIST();
 }
-
-export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    res.setHeader("Allow", "GET");
-    return res.status(405).json({ success: false, error: "Method not allowed" });
-  }
-  const ticker = cleanTicker(req.query.query || req.query.symbol);
-  if (!ticker) return res.status(400).json({ success: false, status: "identity-needed", error: "Enter an NSE ticker." });
-
-  try {
-    const row = await astroEngine({ name: `${ticker}.NS`, symbol: `${ticker}.NS`, asOfDate: istDate(), includeResearchContext: false });
-    if (!row?.computed_from_natal || !row?.astro_model) {
-      return res.status(404).json({ success: false, status: "not-approved", symbol: ticker, reason: "No approved natal record is available for this company." });
-    }
-    const model = row.astro_model;
-    return res.status(200).json({
-      success: true,
-      status: "verified-engine-reading",
-      symbol: ticker,
-      skyDate: istDate(),
-      engineVersion: model.version || row.production_model_version || "v37.9.14",
-      natalFingerprint: row.natal_chart_id || model.natal?.primaryChartId || `${ticker}-approved-chart`,
-      chartBasisLabel: model.natal?.chartAuthority || row.natal_chart_type || "Approved natal chart",
-      chartConfidence: model.natal?.reliability ?? row.natal_reliability ?? 50,
-      row: { ...row, name: ticker, symbol: `${ticker}.NS`, company_name: row.natal_company_name || model.natal?.companyName || ticker }
-    });
-  } catch (error) {
-    return res.status(500).json({ success: false, status: "engine-unreachable", error: error instanceof Error ? error.message : "The Astro engine could not calculate this company." });
-  }
+function resolveSymbol(query) {
+ const input=String(query||'').trim().toUpperCase();
+ if (!input || input.length>120) return null;
+ const key=Object.keys(registry).find(key=>key.toUpperCase()===input || key.toUpperCase()===input+'.NS' || String(registry[key].companyName||'').toUpperCase()===input);
+ if(key)return key;
+ return /^[A-Z0-9&-]+(?:\.(NS|BO))?$/.test(input)?(/\.(NS|BO)$/.test(input)?input:input+'.NS'):null;
+}
+const cache=new Map();
+export default async function handler(req,res) {
+ res.setHeader('Cache-Control','no-store');
+ if(req.method!=='GET'){res.setHeader('Allow','GET');return res.status(405).json({error:'Use GET for research calculations.'});}
+ const date=req.query.date===undefined?todayIST():req.query.date;
+ if(!validDate(date))return res.status(400).json({error:'Choose a valid date between 1900-01-01 and today (IST).'});
+ if(typeof (req.query.query||req.query.ticker)!=='string')return res.status(400).json({error:'A company ticker is required.'});
+ const symbol=resolveSymbol(req.query.query||req.query.ticker);
+ if(!symbol)return res.status(400).json({error:'Enter an exact exchange ticker, for example MARUTI.NS.'});
+ const key=`${symbol}:${date}`;
+ try{
+   if(cache.has(key))return res.status(200).json(cache.get(key));
+   const row=await astroEngine({symbol,asOfDate:date});
+   if(!row.astro_model)return res.status(404).json({status:'natal-unavailable',error:`${symbol} is not yet in Fin-Lumen’s reviewed natal registry. No reading was created.`});
+   const m=row.astro_model;
+   const result={success:true,symbol,skyDate:date,engineVersion:m.version,chartBasisLabel:m.natal.chartAuthority,chartConfidence:m.natal.reliability,natalFingerprint:m.natal.chartFingerprint,row:{...row,name:symbol,symbol,company_name:registry[symbol]?.companyName||symbol}};
+   if(cache.size>=24)cache.delete(cache.keys().next().value);
+   cache.set(key,result);return res.status(200).json(result);
+ }catch(error){console.error('Fin-Lumen calculation failed',symbol,date,error.message);return res.status(500).json({error:'Astrology calculation failed: '+error.message});}
 }

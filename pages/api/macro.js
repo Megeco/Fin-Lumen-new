@@ -1,3 +1,4 @@
+import { validDate } from "./engine/stock.js";
 import {
   getRealEphemeris
 } from "../../lib/realEphemeris.js";
@@ -158,6 +159,9 @@ function displayMacroScores(ephemeris, raw) {
 }
 
 export default function handler(req, res) {
+  res.setHeader("Cache-Control", "no-store");
+  if(req.method!=="GET")return res.status(405).json({error:"Use GET."});
+  if(req.query.date!==undefined && !validDate(req.query.date))return res.status(400).json({error:"Invalid sky date."});
   try {
     const istParts = new Intl.DateTimeFormat("en-CA", {
       timeZone: "Asia/Kolkata",
@@ -233,8 +237,7 @@ export default function handler(req, res) {
     return res.status(500).json({
       success: false,
       route: "/api/macro",
-      error: err.message,
-      stack: err.stack
+      error: err.message
     });
   }
 }
