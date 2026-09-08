@@ -1,6 +1,6 @@
 # Fin-Lumen · Personal Research
 
-Complete Vercel deployment package — v37.9.14-personal.3.
+Complete Vercel calculation package — v37.9.14-personal.4.
 
 Uses the interface from the Fin-Lumen ChatGPT Site with the v37.9.14 astrology engine from your supplied ZIP. No ChatGPT API key, Supabase account, external database, or subscription system is required.
 
@@ -14,9 +14,9 @@ Uses the interface from the Fin-Lumen ChatGPT Site with the v37.9.14 astrology e
 6. Check Replay Lab with ICICIBANK and 15 August 2024. This build should return Rerating pausing, expansion 62/100 and pressure 51/100.
 7. Share the Vercel URL with your friends. Each browser starts with the same ten companies and then saves its own additions and removals.
 
-After deployment, confirm that the footer below the stock table says **Personal build 37.9.14.3**. That visible marker is the quickest way to distinguish this build from the older Vercel interface.
+After deployment, confirm that the footer below the stock table says **Personal build 37.9.14.4**. That visible marker is the quickest way to distinguish this build from the older Vercel interface.
 
-This is a complete application, not an update patch. The correct deployment has a dark navy FIN–LUMEN header, a “Personal research · Friends & family” introduction, a side-drawer stock card, and “Personal build 37.9.14.3” beneath the table. If you see “Look up a stock,” “Refresh readings,” the old full-screen research card, or any database-configuration message, Vercel is still serving an older deployment.
+This is a complete application, not an update patch. The correct deployment has a dark navy FIN–LUMEN header, a “Personal research · Friends & family” introduction, a side-drawer stock card, and “Personal build 37.9.14.4” beneath the table. If you see “Look up a stock,” “Refresh readings,” the old full-screen research card, or any database-configuration message, Vercel is still serving an older deployment.
 
 If reusing the current GitHub repository, upload all contents of this package and redeploy. GitHub’s browser upload does not delete obsolete files, so this release includes a guarded `prebuild` step that removes only the old API routes and former `lib/db.js` from Vercel’s temporary checkout before Next.js compiles. A fresh repository remains the cleanest option, but is no longer required for the build to succeed. Clear custom build/output overrides; no environment variables are required.
 
@@ -24,7 +24,9 @@ If reusing the current GitHub repository, upload all contents of this package an
 
 - Each browser profile stores only its own watchlist and preferred horizon view using localStorage.
 - Adding or removing a company does not modify anyone else's watchlist or the bundled universe.
-- Limit: 100 companies per browser profile. The add-stock box lists the 90 companies supported by the bundled natal registry. Unknown companies return a clear reviewed-chart-unavailable message and are not added.
+- Limit: 100 companies per browser profile. The established natal registry remains authoritative. The calculation API can also receive an official listing-date candidate from the friends-and-family Site and calculate it without changing or publishing the shared registry.
+- Automatically resolved companies use a declared 09:15 Mumbai listing-session proxy, are capped at 45/100 chart reliability, and remain visibly provisional. This prevents an untested listing chart from being presented as equivalent to an established company-event chart.
+- Company identities, listing dates and ISINs are resolved by the Site from NSE's official equity securities master. Personal watchlists and provisional chart bases remain on the user's own device.
 - Clearing site data, private browsing, changing browser profiles, or switching to a different domain can reset the table. Different devices do not sync. People sharing one browser profile share that profile's table.
 - There are no accounts or login gate. Watchlist separation is not access control for the website: anyone who can access the deployment URL can use the research interface.
 - Server memory may cache identical company/date calculations for speed. It stores no shared watchlists and is not required for persistence.

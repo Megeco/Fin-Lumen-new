@@ -1,6 +1,6 @@
 {
   "name": "fin-lumen-pure-astro",
-  "version": "37.9.14-personal.3",
+  "version": "37.9.14-personal.4",
   "private": true,
   "scripts": {
     "dev": "next dev",

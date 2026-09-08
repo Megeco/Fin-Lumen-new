@@ -4,10 +4,10 @@ import { astroEngine } from '../lib/astroEngine.js';
 import stockHandler from '../pages/api/engine/stock.js';
 import replayHandler from '../pages/api/replay.js';
 import { swissRuntimeAudit } from '../lib/swissEphemerisRuntime.js';
-async function call(handler,query,method='GET'){
- let code=200,body;const headers={};
- await handler({query,method},{setHeader(k,v){headers[k]=v},status(c){code=c;return this},json(b){body=b;return this}});
- return {code,body,headers};
+async function call(handler,query,method='GET',body=undefined){
+ let code=200;const headers={};
+ let responseBody;await handler({query,method,body},{setHeader(k,v){headers[k]=v},status(c){code=c;return this},json(b){responseBody=b;return this}});
+ return {code,body:responseBody,headers};
 }
 const results=[];
 for(const [symbol,date] of [['ICICIBANK.NS','2024-08-15'],['HDFCBANK.NS','2026-09-07'],['NEWGEN.NS','2025-04-02'],['GRWRHITECH.NS','2026-09-07'],['BHARTIARTL.NS','2026-09-07'],['GVT&D.NS','2025-01-15']]){
@@ -22,18 +22,20 @@ for(const [symbol,date] of [['ICICIBANK.NS','2024-08-15'],['HDFCBANK.NS','2026-0
 }
 for(const date of ['2025-02-30','2026-13-01','garbage','1899-12-31','2099-01-01'])assert.equal((await call(stockHandler,{query:'TCS',date})).code,400);
 assert.equal((await call(stockHandler,{query:'TCS',date:['2024-01-01']})).code,400);
-assert.equal((await call(stockHandler,{query:'TCS'},'POST')).code,405);
+assert.equal((await call(stockHandler,{},'POST',{})).code,400);
 assert.equal((await call(stockHandler,{query:'THISCOMPANYDOESNOTEXIST'})).code,404);
 const unsupported=await call(stockHandler,{query:'BALUFORGE.NS',date:'2026-09-07'});
 assert.equal(unsupported.code,404);
 assert.match(unsupported.body.error,/reviewed natal registry/);
+const provisional=await call(stockHandler,{},'POST',{query:'BALUFORGE.NS',date:'2026-09-07',natalCandidate:{companyName:'Balu Forge Industries Limited',listingDate:'2024-04-29',source:'Official NSE equity securities master; listing-session proxy'}});
+assert.equal(provisional.code,200,JSON.stringify(provisional.body));assert.equal(provisional.body.chartConfidence,45);assert.match(provisional.body.chartBasisLabel,/provisional/i);
 const source=fs.readFileSync(new URL('../components/dashboard.tsx',import.meta.url),'utf8');
 assert(!source.includes('2026-08-20'),'Static publication date survived');
 assert(!source.includes('/api/company-admissions'),'Shared request queue survived');
 assert(source.includes('drawer-expanded'),'GPT expanded-card state is missing');
 assert(source.includes('Open in new tab'),'New-tab card control is missing');
-assert(source.includes('Personal build 37.9.14.3'),'Visible deployment marker is missing');
+assert(source.includes('Personal build 37.9.14.4'),'Visible deployment marker is missing');
 const packageJson=JSON.parse(fs.readFileSync(new URL('../package.json',import.meta.url),'utf8'));
 assert(!Object.keys(packageJson.dependencies).some(name=>name.toLowerCase().includes('supabase')),'External database dependency survived');
 console.table(results);console.log('Swiss runtime:',JSON.stringify(swissRuntimeAudit(new Date('2026-09-07T12:00:00Z'))));
-console.log('PASS: six direct/API/replay comparisons, strict input validation, read-only endpoint, no static publication or shared request queue.');
+console.log('PASS: six direct/API/replay comparisons, strict inputs, provisional listing calculation, no static publication or shared request queue.');

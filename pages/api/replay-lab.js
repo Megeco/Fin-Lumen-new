@@ -234,14 +234,15 @@ function buildReplaySummary({ company, natal, replay, macroSnapshot, windows, fo
 }
 
 export default async function handler(req, res) {
-  if(req.method && req.method!=="GET")return res.status(405).json({error:"Use GET."});
-  if(!validDate(req.query.date))return res.status(400).json({error:"Invalid replay date."});
+  if(req.method && !["GET","POST"].includes(req.method))return res.status(405).json({error:"Use GET or POST."});
+  const requestInput=req.method==="POST"?(req.body||{}):req.query;
+  if(!validDate(requestInput.date))return res.status(400).json({error:"Invalid replay date."});
   if(res.setHeader)res.setHeader("Cache-Control","no-store");
   try {
-    const ticker = String(req.query.ticker || "").trim();
-    const date = String(req.query.date || "").trim();
-    const forwardDays = toNumber(req.query.forwardDays, 730);
-    const includeRaw = String(req.query.raw || "") === "1";
+    const ticker = String(requestInput.ticker || requestInput.symbol || "").trim();
+    const date = String(requestInput.date || "").trim();
+    const forwardDays = toNumber(requestInput.forwardDays, 730);
+    const includeRaw = String(requestInput.raw || "") === "1";
 
     if (!ticker || !date) {
       return res.status(400).json({
@@ -251,12 +252,22 @@ export default async function handler(req, res) {
       });
     }
 
-    const requestedChartId = String(req.query.chartId || "").trim() || null;
+    const requestedChartId = String(requestInput.chartId || "").trim() || null;
+    const supplied=requestInput.natalCandidate&&typeof requestInput.natalCandidate==="object"?requestInput.natalCandidate:null;
+    const listingDate=String(supplied?.listingDate||supplied?.birthDate||"").trim();
+    const natalCandidate=/^\d{4}-\d{2}-\d{2}$/.test(listingDate)?{
+      name:ticker,symbol:ticker,companyName:String(supplied.companyName||ticker).slice(0,160),chartType:"listing",birthDate:listingDate,listingDate,
+      birthTime:"09:15",city:"Mumbai",country:"India",timezone:"Asia/Kolkata",confidence:"low",
+      source:String(supplied.source||"Official exchange listing record").slice(0,500),sourceVerification:"verified-primary-source",
+      anchorValidation:"untested",timePrecision:"exchange-open-default",capitalAuthorityCeiling:"RESEARCH_ONLY",
+      auditStatus:"automatic-official-listing-proxy",validationEligibility:"provisional-listing-research"
+    }:null;
     const liveHistorical = await astroEngine({
       symbol: ticker,
       asOfDate: date,
       chartId: requestedChartId,
-      includeResearchContext: true
+      includeResearchContext: true,
+      ...(natalCandidate||{})
     });
     const context = liveHistorical?._researchContext;
     const company = context?.company;
